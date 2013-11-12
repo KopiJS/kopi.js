@@ -2,7 +2,7 @@ Kopi = require '../index'
 
 describe 'Kopi', ->
 
-	describe '#parse', ->
+  describe '#parse', ->
     it 'returns Kopi ingredients if pass in "Kopi"', ->
       ingredients = Kopi.parse 'Kopi'
       expect(ingredients).to.deep.equal
