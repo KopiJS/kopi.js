@@ -1,0 +1,50 @@
+# App
+lib-cov/
+tmp/
+pids/
+results/
+node_modules/
+*.swp
+**.orig
+*.pid
+*.log
+vendor/bundle/
+public/assets/
+config/database.coffee
+.env
+
+# OSX
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.directory
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# RubyMine
+.idea/
+
+# TextMate
+*.tmproj
+*.tmproject
+tmtags
+
+# Vim
+.*.sw[a-z]
+*.un~
+Session.vim
+
+# Emacs
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
