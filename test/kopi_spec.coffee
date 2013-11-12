@@ -45,6 +45,14 @@ describe 'Kopi', ->
         sugar: 0.5
       expect(name).to.equal 'Kopi Siew Dai'
 
+    it 'returns "Kopi Kosong" if no sugar is added', ->
+      name = Kopi.stringify
+        condensed_milk: .2
+        water: .4
+        coffee: .4
+        sugar: 0
+      expect(name).to.equal 'Kopi Kosong'
+
     it 'returns "Kopi Gah Dai" if more milk is added', ->
       name = Kopi.stringify
         condensed_milk: .4
@@ -86,6 +94,14 @@ describe 'Kopi', ->
           sugar: 0.5
         expect(name).to.equal 'Kopi O Siew Dai'
 
+      it 'returns "Kopi O Kosong" if no sugar is added', ->
+        name = Kopi.stringify
+          condensed_milk: 0
+          water: .5
+          coffee: .5
+          sugar: 0
+        expect(name).to.equal 'Kopi O Kosong'
+
     context 'when evaporated milk is used', ->
       it 'returns "Kopi C" if equal amounts of water and coffee is added', ->
         name = Kopi.stringify
@@ -122,3 +138,12 @@ describe 'Kopi', ->
           coffee: .5
           sugar: 0.5
         expect(name).to.equal 'Kopi C Siew Dai'
+
+      it 'returns "Kopi C Kosong" if no sugar is added', ->
+        name = Kopi.stringify
+          condensed_milk: 0
+          evaporated_milk: .2
+          water: .5
+          coffee: .5
+          sugar: 0
+        expect(name).to.equal 'Kopi C Kosong'
