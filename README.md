@@ -12,7 +12,7 @@ https://twitter.com/laktek/status/400080522656759808
 Development setup
 -----------------
 
-Requires [Grunt]<http://gruntjs.com/>
+Requires [Grunt](http://gruntjs.com/)
 
 - `npm install` - set up all the tools
 - `grunt test` - run the specs
