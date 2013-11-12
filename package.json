@@ -1,24 +1,15 @@
 {
-  "name": "kopi.js"
-, "description": "API for ordering Singaporean Coffee"
-, "author": "cheeaun, chuyeow, laktek, soulofpeace"
-, "version": "0.0.1"
-, "main": "./index"
-, "dependencies": {
-    "coffee-script"      : "1.6.x"
-  , "underscore"         : "1.4.x"
-  }
-, "devDependencies": {
-    "mocha"        : "1.9.x"
-  , "sinon"        : "1.6.x"
-  , "chai"         : "1.5.x"
-  , "sinon-chai"   : "2.3.x"
-  }
-, "engines": {
-    "node"         : "0.8.x"
-  , "npm"          : "1.2.x"
-  }
-, "scripts": {
-    "test": "make test"
+  "name": "kopi.js",
+  "description": "API for ordering Singaporean Coffee",
+  "author": "cheeaun, chuyeow, laktek, soulofpeace",
+  "version": "0.0.1",
+  "main": "./index",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-mocha-test": "~0.7.0",
+    "chai": "~1.8.1"
+  },
+  "scripts": {
+    "test": "grunt test"
   }
 }

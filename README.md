@@ -8,3 +8,11 @@ https://github.com/laktek/kopi.js/wiki/API-Draft
 
 It all started from this Twitter conversation:
 https://twitter.com/laktek/status/400080522656759808
+
+Development setup
+-----------------
+
+Requires [Grunt]<http://gruntjs.com/>
+
+- `npm install` - set up all the tools
+- `grunt test` - run the specs

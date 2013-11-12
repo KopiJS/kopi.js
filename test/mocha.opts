@@ -1,5 +1,0 @@
---require coffee-script ./test/spec_helper.coffee
---reporter dot
---timeout 1000
---ui bdd
--G
