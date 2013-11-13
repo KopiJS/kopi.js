@@ -6,11 +6,99 @@ describe 'Kopi', ->
     it 'returns Kopi ingredients if pass in "Kopi"', ->
       ingredients = Kopi.parse 'Kopi'
       expect(ingredients).to.deep.equal
-        condensed_milk: .2,
-        evaporated_milk: 0
-        water: .4
-        coffee: .4
+        water: 1
+        coffee: 1
         sugar: 1
+        condensed_milk: 1
+        evaporated_milk: 0
+    it 'returns Kopi ingredients if pass in "Kopi O"', ->
+      ingredients = Kopi.parse 'Kopi O'
+      expect(ingredients).to.deep.equal
+        water: 1
+        coffee: 1
+        sugar: 1
+        condensed_milk: 0
+        evaporated_milk: 0
+    it 'returns Kopi ingredients if pass in "Kopi O Gau"', ->
+      ingredients = Kopi.parse 'Kopi O Gau'
+      expect(ingredients).to.deep.equal
+        water: 1
+        coffee: 1.5
+        sugar: 1
+        condensed_milk: 0
+        evaporated_milk: 0
+    it 'returns Kopi ingredients if pass in "Kopi O Po"', ->
+      ingredients = Kopi.parse 'Kopi O Po'
+      expect(ingredients).to.deep.equal
+        water: 1
+        coffee: 0.5
+        sugar: 1
+        condensed_milk: 0
+        evaporated_milk: 0
+    it 'returns Kopi ingredients if pass in "Kopi O Siew Dai"', ->
+      ingredients = Kopi.parse 'Kopi O Siew Dai'
+      expect(ingredients).to.deep.equal
+        water: 1
+        coffee: 1
+        sugar: 0.5
+        condensed_milk: 0
+        evaporated_milk: 0
+    it 'returns Kopi ingredients if pass in "Kopi Gau"', ->
+      ingredients = Kopi.parse 'Kopi Gau'
+      expect(ingredients).to.deep.equal
+        water: 1
+        coffee: 1.5
+        sugar: 1
+        condensed_milk: 1
+        evaporated_milk: 0
+    it 'returns Kopi ingredients if pass in "Kopi Po"', ->
+      ingredients = Kopi.parse 'Kopi Po'
+      expect(ingredients).to.deep.equal
+        water: 1
+        coffee: 0.5
+        sugar: 1
+        condensed_milk: 1
+        evaporated_milk: 0
+    it 'returns Kopi ingredients if pass in "Kopi Siew Dai"', ->
+      ingredients = Kopi.parse 'Kopi Siew Dai'
+      expect(ingredients).to.deep.equal
+        water: 1
+        coffee: 1
+        sugar: 0.5
+        condensed_milk: 1
+        evaporated_milk: 0
+    it 'returns Kopi ingredients if pass in "Kopi Gah Dai"', ->
+      ingredients = Kopi.parse 'Kopi Gah Dai'
+      expect(ingredients).to.deep.equal
+        water: 1
+        coffee: 1
+        sugar: 1
+        condensed_milk: 1.5
+        evaporated_milk: 0
+    it 'returns Kopi ingredients if pass in "Kopi Si"', ->
+      ingredients = Kopi.parse 'Kopi Si'
+      expect(ingredients).to.deep.equal
+        water: 1
+        coffee: 1
+        sugar: 1
+        condensed_milk: 0
+        evaporated_milk: 1
+    it 'returns Kopi ingredients if pass in "Kopi Si Kosong"', ->
+      ingredients = Kopi.parse 'Kopi Si Kosong'
+      expect(ingredients).to.deep.equal
+        water: 1
+        coffee: 1
+        sugar: 0
+        condensed_milk: 0
+        evaporated_milk: 1
+    it 'returns Kopi ingredients if pass in "Kopi Kosong"', ->
+      ingredients = Kopi.parse 'Kopi Kosong'
+      expect(ingredients).to.deep.equal
+        water: 1
+        coffee: 1
+        sugar: 0
+        condensed_milk: 0
+        evaporated_milk: 0
 
   describe '#stringify', ->
     it 'returns "Kopi" if pass in Kopi ingredients', ->

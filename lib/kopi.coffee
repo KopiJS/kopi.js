@@ -1,11 +1,49 @@
 class Kopi
 
-  parse: ->
-    condensed_milk: .2,
-    evaporated_milk: 0,
-    water: .4,
-    coffee: .4,
-    sugar: 1
+  parse: (name)->
+    kopi_content = 
+        water: 1
+        coffee: 1
+        sugar: 1
+        condensed_milk: 1
+        evaporated_milk: 0
+
+    parse_name = name.trim().toLowerCase()
+
+    if parse_name == 'kopi o'
+        kopi_content.condensed_milk = 0
+    else if parse_name == 'kopi o gau'
+        kopi_content.coffee = 1.5
+        kopi_content.condensed_milk = 0
+    else if parse_name == 'kopi o po'
+        kopi_content.coffee = 0.5
+        kopi_content.condensed_milk = 0
+    else if parse_name == 'kopi o siew dai'
+        kopi_content.sugar = 0.5
+        kopi_content.condensed_milk = 0
+    else if parse_name == 'kopi gau'
+        kopi_content.coffee = 1.5
+    else if parse_name == 'kopi po'
+        kopi_content.coffee = 0.5
+    else if parse_name == 'kopi siew dai'
+        kopi_content.sugar = 0.5
+    else if parse_name == 'kopi gah dai'
+        kopi_content.condensed_milk = 1.5
+    else if parse_name == 'kopi si'
+        kopi_content.condensed_milk = 0
+        kopi_content.evaporated_milk = 1
+    else if parse_name == 'kopi si kosong'
+        kopi_content.condensed_milk = 0
+        kopi_content.evaporated_milk = 1
+        kopi_content.sugar = 0
+    else if parse_name == 'kopi kosong'
+        kopi_content.condensed_milk = 0
+        kopi_content.evaporated_milk = 0
+        kopi_content.sugar = 0
+
+    kopi_content
+
+
 
   stringify: (i={}) ->
     if i.condensed_milk > 0
