@@ -70,6 +70,11 @@ class Kopi
     else
       coffeeLevel = ' Po'
 
-    "Kopi#{milk}#{coffeeLevel}#{sugarLevel}"
+    if i.ice
+      ice = ' Peng'
+    else
+      ice = ''
+
+    "Kopi#{milk}#{coffeeLevel}#{sugarLevel}#{ice}"
 
 module.exports = new Kopi
