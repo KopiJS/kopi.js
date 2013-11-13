@@ -30,10 +30,10 @@ class Kopi
         kopi_content.sugar = 0.5
       when 'kopi gah dai'
         kopi_content.condensed_milk = 1.5
-      when 'kopi si'
+      when 'kopi c'
         kopi_content.condensed_milk = 0
         kopi_content.evaporated_milk = 1
-      when 'kopi si kosong'
+      when 'kopi c kosong'
         kopi_content.condensed_milk = 0
         kopi_content.evaporated_milk = 1
         kopi_content.sugar = 0
