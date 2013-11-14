@@ -68,6 +68,9 @@ class Kopi
 
       ice = true if /\speng$/.test name
 
+    else if /^water$/.test name
+      water = 1
+
     water: water
     coffee: coffee
     sugar: sugar

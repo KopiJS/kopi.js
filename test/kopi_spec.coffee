@@ -64,6 +64,10 @@ describe 'Kopi', ->
       content = Kopi.parse 'Kopi Peng'
       expect(content.ice).to.be.true
 
+    it 'returns water if pass in "Water"', ->
+      content = Kopi.parse 'Water'
+      expect(content.water).to.be.equal 1
+
   describe '#stringify', ->
     it 'returns "Kopi" if pass in Kopi ingredients', ->
       name = Kopi.stringify
