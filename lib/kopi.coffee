@@ -96,7 +96,9 @@ class Kopi
     if i.coffee == i.water
       coffeeLevel = ''
     else if i.coffee > i.water
-      if i.condensed_milk > i.water
+      if i.water == 0
+        coffeeLevel = ' Di Lo'
+      else if i.condensed_milk > i.water
         coffeeLevel = ' Gah Dai'
       else
         coffeeLevel = ' Gau'

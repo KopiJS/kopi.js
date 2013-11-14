@@ -117,6 +117,15 @@ describe 'Kopi', ->
         sugar: 1
       expect(name).to.equal 'Kopi Gah Dai'
 
+    it 'returns "Kopi Di Lo" if no water is added', ->
+      name = Kopi.stringify
+        condensed_milk: .2
+        water: 0
+        coffee: .4
+        sugar: 1
+      expect(name).to.equal 'Kopi Di Lo'
+
+
     it 'returns Kopi name appended with "Peng" if ice is added', ->
       name = Kopi.stringify
         condensed_milk: .2
