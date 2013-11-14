@@ -1,49 +1,79 @@
 class Kopi
 
   parse: (name)->
-    kopi_content = 
-      water: 1
-      coffee: 1
-      sugar: 1
-      condensed_milk: 1
-      evaporated_milk: 0
+    name = name.trim().toLowerCase()
 
-    parse_name = name.trim().toLowerCase()
+    # condensend milk = sweetened
+    # evaporated milk = unsweetened
 
-    switch parse_name
-      when 'kopi o'
-        kopi_content.condensed_milk = 0
-      when 'kopi o gau'
-        kopi_content.coffee = 1.5
-        kopi_content.condensed_milk = 0
-      when 'kopi o po'
-        kopi_content.coffee = 0.5
-        kopi_content.condensed_milk = 0
-      when 'kopi o siew dai'
-        kopi_content.sugar = 0.5
-        kopi_content.condensed_milk = 0
-      when 'kopi gau'
-        kopi_content.coffee = 1.5
-      when 'kopi po'
-        kopi_content.coffee = 0.5
-      when 'kopi siew dai'
-        kopi_content.sugar = 0.5
-      when 'kopi gah dai'
-        kopi_content.condensed_milk = 1.5
-      when 'kopi c'
-        kopi_content.condensed_milk = 0
-        kopi_content.evaporated_milk = 1
-      when 'kopi c kosong'
-        kopi_content.condensed_milk = 0
-        kopi_content.evaporated_milk = 1
-        kopi_content.sugar = 0
-      when 'kopi kosong'
-        kopi_content.condensed_milk = 0
-        kopi_content.evaporated_milk = 0
-        kopi_content.sugar = 0
+    # defaults
+    evaporated_milk = condensed_milk = water = coffee = sugar = 0
+    ice = false
 
-    kopi_content
+    if /^kopi/.test name
 
+      # 1. TYPES
+
+      sugar = 1
+
+      # Kopi C
+      if /^kopi\s(c|si|see)\b/.test name
+        evaporated_milk = .2
+        water = .4
+        coffee = .4
+
+      # Kopi O
+      else if /^kopi\soh?\b/.test name
+        water = .5
+        coffee = .5
+
+      # Kopi
+      else
+        condensed_milk = .2
+        water = .4
+        coffee = .4
+
+      # 2. EXPRESSIONS
+
+      # kosong = no sugar
+      if /\bkosong\b/.test name
+        sugar = 0
+
+      # gah dai = more sweet
+      else if /\b(gah|ka)\sdai\b/.test(name) and condensed_milk > 0
+        condensed_milk += .1
+        water -= .05
+        coffee -= .05
+
+      # siu dai = less sweet
+      else if /\bsi(u|ew)\sdai\b/.test name
+        sugar = .5
+
+      # po = more water, less coffee
+      else if /\bpo\b/.test name
+        water += .1
+        coffee -= .1
+
+      # gau = more coffee, less water
+      else if /\bgau\b/.test name
+        water -= .1
+        coffee += .1
+
+      # di lo = no water, more coffee
+      else if /\bdi\slo\b/.test name
+        coffee += water
+        water = 0
+
+      # 3. ICE
+
+      ice = true if /\speng$/.test name
+
+    water: water
+    coffee: coffee
+    sugar: sugar
+    condensed_milk: condensed_milk
+    evaporated_milk: evaporated_milk
+    ice: ice
 
   stringify: (i={}) ->
     if i.condensed_milk > 0
