@@ -40,10 +40,18 @@ class Kopi
         sugar = 0
 
       # gah dai = more sweet
-      else if /\b(gah|ka)\sdai\b/.test(name) and condensed_milk > 0
-        condensed_milk += .1
-        water -= .05
-        coffee -= .05
+      else if /\b(gah|ka)\sdai\b/.test(name) 
+        if condensed_milk > 0
+            condensed_milk += .1
+            water -= .05
+            coffee -= .05
+        else if evaporated_milk > 0
+            evaporated_milk += .1
+            water -= .05
+            coffee -= .05
+        else
+            sugar = 1.5
+            
 
       # siu dai = less sweet
       else if /\bsi(u|ew)\sdai\b/.test name
