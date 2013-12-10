@@ -120,4 +120,11 @@ class Kopi
 
     "Kopi#{milk}#{coffeeLevel}#{sugarLevel}#{ice}"
 
+  dabao: (kopi, serve = 'packet') ->
+    # WARNING: plastic cup might charge extra 20 cent
+    if /\b(plastic cup|packet)\b/.test(serve)
+      'Da bao ' + kopi + ', ' + serve + '!'
+    else
+      'Da bao ' + kopi + '... talk cock only la'
+
 module.exports = new Kopi
