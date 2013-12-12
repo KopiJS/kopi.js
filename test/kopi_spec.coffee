@@ -68,6 +68,10 @@ describe 'Kopi', ->
       content = Kopi.parse 'Water'
       expect(content.water).to.be.equal 1
 
+    it 'returns coffee powder topping if pass in "Dinosaur"', ->
+      content = Kopi.parse 'Kopi Dinosaur'
+      expect(content.coffee).to.be.gt 1
+
   describe '#stringify', ->
     it 'returns "Kopi" if pass in Kopi ingredients', ->
       name = Kopi.stringify
@@ -124,6 +128,14 @@ describe 'Kopi', ->
         coffee: .4
         sugar: 1
       expect(name).to.equal 'Kopi Di Lo'
+
+    it 'returns "Kopi Dinosaur" if topped with coffee powder', ->
+      name = Kopi.stringify
+        condensed_milk: .2
+        water: .4
+        coffee: 2
+        sugar: 1
+      expect(name).to.equal 'Kopi Dinosaur'
 
 
     it 'returns Kopi name appended with "Peng" if ice is added', ->

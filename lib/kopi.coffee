@@ -72,6 +72,9 @@ class Kopi
         coffee += water
         water = 0
 
+      else if /dinosaur/.test name
+        coffee = 2
+
       # 3. ICE
 
       ice = true if /\speng$/.test name
@@ -108,6 +111,8 @@ class Kopi
         coffeeLevel = ' Di Lo'
       else if i.condensed_milk > i.water
         coffeeLevel = ' Gah Dai'
+      else if i.coffee >= 2
+        coffeeLevel = ' Dinosaur'
       else
         coffeeLevel = ' Gau'
     else
