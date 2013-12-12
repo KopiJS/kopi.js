@@ -70,7 +70,7 @@ describe 'Kopi', ->
 
     it 'returns coffee powder topping if pass in "Dinosaur"', ->
       content = Kopi.parse 'Kopi Dinosaur'
-      expect(content.coffee).to.be.gt 1
+      expect(content.coffee).to.be.at.least 2
 
   describe '#stringify', ->
     it 'returns "Kopi" if pass in Kopi ingredients', ->
