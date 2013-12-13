@@ -228,3 +228,23 @@ describe 'Kopi', ->
           coffee: .5
           sugar: 0
         expect(name).to.equal 'Kopi C Kosong'
+
+  describe '#dabao', ->
+    kopi = Kopi.stringify
+      condensed_milk: .2
+      water: .4
+      coffee: .4
+      sugar: 1
+
+    it 'dabaos Kopi in a bag with a straw', ->
+      dabao = Kopi.dabao(kopi)
+      expect(dabao).to.equal 'Da bao Kopi, packet!'
+
+    it 'dabaos Kopi in a plastic cup', ->
+      dabao = Kopi.dabao(kopi, 'plastic cup')
+      expect(dabao).to.equal 'Da bao Kopi, plastic cup!'
+
+    it 'dabaos Kopi in the mouth', ->
+      dabao = Kopi.dabao(kopi, 'mouth')
+      expect(dabao).to.equal 'Da bao Kopi... talk cock only la'
+
