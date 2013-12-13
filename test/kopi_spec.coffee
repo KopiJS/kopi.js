@@ -244,7 +244,7 @@ describe 'Kopi', ->
       dabao = Kopi.dabao(kopi, 'plastic cup')
       expect(dabao).to.equal 'Da bao Kopi, plastic cup!'
 
-    it 'dabaos Kopi in a plastic cup', ->
+    it 'dabaos Kopi in the mouth', ->
       dabao = Kopi.dabao(kopi, 'mouth')
       expect(dabao).to.equal 'Da bao Kopi... talk cock only la'
 
