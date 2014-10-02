@@ -40,18 +40,8 @@ class Kopi
         sugar = 0
 
       # gah dai = more sweet
-      else if /\b(gah|ka)\sdai\b/.test(name) 
-        if condensed_milk > 0
-            condensed_milk += .1
-            water -= .05
-            coffee -= .05
-        else if evaporated_milk > 0
-            evaporated_milk += .1
-            water -= .05
-            coffee -= .05
-        else
-            sugar = 1.5
-            
+      else if /\b(gah|ka)\sdai\b/.test(name)
+        sugar = 1.5
 
       # siu dai = less sweet
       else if /\bsi(u|ew)\sdai\b/.test name
@@ -71,6 +61,10 @@ class Kopi
       else if /\bdi\slo\b/.test name
         coffee += water
         water = 0
+
+      # huan = add more condensed milk
+      else if /\bhuan\b/.test name
+        condensed_milk = .4
 
       # 3. ICE
 
@@ -98,18 +92,20 @@ class Kopi
       sugarLevel = ' Kosong'
     else if i.sugar < 1
       sugarLevel = ' Siew Dai'
-    else if i.sugar >= 1
+    else if i.sugar == 1
       sugarLevel = ''
+    else if i.sugar > 1
+      sugarLevel = ' Gah Dai'
 
     if i.coffee == i.water
       coffeeLevel = ''
     else if i.coffee > i.water
       if i.water == 0
         coffeeLevel = ' Di Lo'
-      else if i.condensed_milk > i.water
-        coffeeLevel = ' Gah Dai'
       else
         coffeeLevel = ' Gau'
+    else if i.condensed_milk >= i.water
+      coffeeLevel = ' Huan'
     else
       coffeeLevel = ' Po'
 

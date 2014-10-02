@@ -34,18 +34,29 @@ describe 'Kopi', ->
         evaporated_milk: .2
         ice: false
 
+    it 'returns Kopi Huan contents if pass in "Kopi Huan"', ->
+      content = Kopi.parse 'Kopi Huan'
+      expect(content).to.deep.equal
+        water: .4
+        coffee: .4
+        sugar: 1
+        condensed_milk: .4
+        evaporated_milk: 0
+        ice: false
+
     it 'returns no sugar if pass in "Kosong"', ->
       content = Kopi.parse 'Kopi O Kosong'
       expect(content.sugar).to.equal 0
 
-    it 'returns more condensed milk if pass in "Gah Dai"', ->
+    it 'returns more sugar if pass in "Gah Dai"', ->
       content = Kopi.parse 'Kopi'
       contentGahDai = Kopi.parse 'Kopi Gah Dai'
-      expect(contentGahDai.condensed_milk).to.be.gt content.condensed_milk
+      expect(contentGahDai.sugar).to.be.gt content.sugar
 
     it 'returns less sugar if pass in "Siu Dai"', ->
-      content = Kopi.parse 'Kopi Siu Dai'
-      expect(content.sugar).to.be.equal .5
+      content = Kopi.parse 'Kopi'
+      contentGahDai = Kopi.parse 'Kopi Siu Dai'
+      expect(contentGahDai.sugar).to.be.lt content.sugar
 
     it 'returns more water, less coffee if pass in "Po"', ->
       content = Kopi.parse 'Kopi Po'
@@ -109,22 +120,29 @@ describe 'Kopi', ->
         sugar: 0
       expect(name).to.equal 'Kopi Kosong'
 
-    it 'returns "Kopi Gah Dai" if more milk is added', ->
+    it 'returns "Kopi Gah Dai" if more suagr is added', ->
       name = Kopi.stringify
-        condensed_milk: .4
-        water: .2
+        condensed_milk: .2
+        water: .4
         coffee: .4
-        sugar: 1
+        sugar: 1.5
       expect(name).to.equal 'Kopi Gah Dai'
 
     it 'returns "Kopi Di Lo" if no water is added', ->
       name = Kopi.stringify
         condensed_milk: .2
         water: 0
-        coffee: .4
+        coffee: .8
         sugar: 1
       expect(name).to.equal 'Kopi Di Lo'
 
+    it 'returns "Kopi Huan" if extra condensed milk is added', ->
+      name = Kopi.stringify
+        condensed_milk: .4
+        water: .4
+        coffee: .2
+        sugar: 1
+      expect(name).to.equal 'Kopi Huan'
 
     it 'returns Kopi name appended with "Peng" if ice is added', ->
       name = Kopi.stringify
