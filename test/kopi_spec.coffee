@@ -13,6 +13,7 @@ describe 'Kopi', ->
         condensed_milk: .2
         evaporated_milk: 0
         ice: false
+        mixin: ''
 
     it 'returns Kopi O contents if pass in "Kopi O"', ->
       content = Kopi.parse 'Kopi O'
@@ -23,6 +24,7 @@ describe 'Kopi', ->
         condensed_milk: 0
         evaporated_milk: 0
         ice: false
+        mixin: ''
 
     it 'returns Kopi C contents if pass in "Kopi C"', ->
       content = Kopi.parse 'Kopi C'
@@ -33,6 +35,7 @@ describe 'Kopi', ->
         condensed_milk: 0
         evaporated_milk: .2
         ice: false
+        mixin: ''
 
     it 'returns Kopi Huan contents if pass in "Kopi Huan"', ->
       content = Kopi.parse 'Kopi Huan'
@@ -43,6 +46,7 @@ describe 'Kopi', ->
         condensed_milk: .4
         evaporated_milk: 0
         ice: false
+        mixin: ''
 
     it 'returns no sugar if pass in "Kosong"', ->
       content = Kopi.parse 'Kopi O Kosong'
@@ -74,6 +78,14 @@ describe 'Kopi', ->
     it 'returns ice if pass in "Peng"', ->
       content = Kopi.parse 'Kopi Peng'
       expect(content.ice).to.be.true
+
+    it 'returns mixin as butter if pass in "Gu You"', ->
+      content = Kopi.parse 'Kopi Gu You'
+      expect(content.mixin).to.equal 'butter'
+
+    it 'returns tea if pass in "Cham"', ->
+      content = Kopi.parse 'Kopi Cham'
+      expect(content.mixin).to.be.equal 'tea'
 
     it 'returns water if pass in "Water"', ->
       content = Kopi.parse 'Water'
@@ -159,6 +171,24 @@ describe 'Kopi', ->
         sugar: 1
         ice: true
       expect(name).to.equal 'Kopi Gau Peng'
+
+    it 'returns Kopi name appended with "Gu You" if butter is added', ->
+      name = Kopi.stringify
+        condensed_milk: .2
+        water: .4
+        coffee: .4
+        sugar: 1
+        butter: true
+      expect(name).to.equal 'Kopi Gu You'
+
+    it 'returns Kopi name appended with "Cham" if tea is mixed', ->
+      name = Kopi.stringify
+        condensed_milk: .2
+        water: .4
+        coffee: .4
+        sugar: 1
+        tea: true
+      expect(name).to.equal 'Kopi Cham'
 
     context 'when no milk is added', ->
       it 'returns "Kopi O" if equal amounts of water and coffee is added', ->

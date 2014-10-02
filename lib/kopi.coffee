@@ -9,6 +9,7 @@ class Kopi
     # defaults
     evaporated_milk = condensed_milk = water = coffee = sugar = 0
     ice = false
+    mixin = ''
 
     if /^kopi/.test name
 
@@ -70,6 +71,14 @@ class Kopi
 
       ice = true if /\speng$/.test name
 
+      # 4. BUTTER
+
+      mixin = 'butter' if /\sgu you$/.test name
+
+      # 5. Tea (also known as YuangYang)
+
+      mixin = 'tea' if /\scham$/.test name
+
     else if /^water$/.test name
       water = 1
 
@@ -79,6 +88,7 @@ class Kopi
     condensed_milk: condensed_milk
     evaporated_milk: evaporated_milk
     ice: ice
+    mixin: mixin
 
   stringify: (i={}) ->
     if i.condensed_milk > 0
@@ -114,6 +124,13 @@ class Kopi
     else
       ice = ''
 
-    "Kopi#{milk}#{coffeeLevel}#{sugarLevel}#{ice}"
+    mixin = ''
+
+    if i.butter
+      mixin = ' Gu You'
+    else if i.tea
+      mixin = ' Cham'
+
+    "Kopi#{milk}#{coffeeLevel}#{sugarLevel}#{ice}#{mixin}"
 
 module.exports = new Kopi
