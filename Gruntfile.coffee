@@ -13,7 +13,21 @@ module.exports = (grunt) ->
           ui: 'bdd'
           growl: true
         src: 'test/*_spec.*'
+    coffee:
+      dist:
+        src: 'lib/*.coffee'
+        dest: 'dist/kopi.js'
+    uglify:
+      min:
+        files:
+          'dist/kopi.min.js': 'dist/kopi.js'
 
   grunt.loadNpmTasks 'grunt-mocha-test'
+  grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-contrib-uglify'
 
   grunt.registerTask 'test', 'mochaTest'
+  grunt.registerTask 'dist', [
+    'coffee'
+    'uglify'
+  ]

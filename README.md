@@ -16,3 +16,9 @@ Requires [Grunt](http://gruntjs.com/)
 
 - `npm install` - set up all the tools
 - `grunt test` - run the specs
+- `grunt dist` - generate the distribution files
+
+License
+-------
+
+[MIT](http://cheeaun.mit-license.org/)
