@@ -109,6 +109,10 @@
 
   })();
 
-  module.exports = new Kopi;
+  if (typeof exports === "object") {
+    module.exports = new Kopi;
+  } else {
+    window.Kopi = new Kopi;
+  }
 
 }).call(this);
