@@ -40,7 +40,7 @@ class Kopi
         sugar = 0
 
       # gah dai = more sweet
-      else if /\b(gah|ka)\sdai\b/.test(name) 
+      else if /\b(gah|ka)\sdai\b/.test(name)
         if condensed_milk > 0
             condensed_milk += .1
             water -= .05
@@ -51,7 +51,7 @@ class Kopi
             coffee -= .05
         else
             sugar = 1.5
-            
+
 
       # siu dai = less sweet
       else if /\bsi(u|ew)\sdai\b/.test name
@@ -120,4 +120,7 @@ class Kopi
 
     "Kopi#{milk}#{coffeeLevel}#{sugarLevel}#{ice}"
 
-module.exports = new Kopi
+if typeof exports is "object"
+  module.exports = new Kopi
+else
+  window.Kopi = new Kopi
