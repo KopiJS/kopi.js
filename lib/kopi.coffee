@@ -118,7 +118,14 @@ class Kopi
     else
       ice = ''
 
-    "Kopi#{milk}#{coffeeLevel}#{sugarLevel}#{ice}"
+    defaultTemplate = "Kopi#{milk}#{coffeeLevel}#{sugarLevel}#{ice}"
+
+    template = \
+      if i.ice \
+          and (coffeeLevel == ' Gah Dai' and sugarLevel == '')
+        "Kopi#{milk}#{ice}#{coffeeLevel}"
+      else
+        defaultTemplate
 
 if typeof exports is "object"
   module.exports = new Kopi
