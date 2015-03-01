@@ -6,16 +6,15 @@ module.exports = {
   parse: function parse(name) {
     name = name.trim().toLowerCase();
 
-    // condensend milk = sweetened
-    // evaporated milk = unsweetened
-
     // defaults
     var coffee = 0,
         condensed_milk = 0,
-        evaporated_milk = 0,
-        sugar = 0,
+        // sweetened
+    evaporated_milk = 0,
+        // unsweetened
+    sugar = 0,
         water = 0,
-        ice = false;
+        state = "warm";
 
     if (/^kopi/.test(name)) {
 
@@ -41,14 +40,25 @@ module.exports = {
         coffee = 0.4;
       }
 
-      // 2. EXPRESSIONS
+      // 2. STATE
+
+      if (/\b(peng|bing)\b/.test(name)) {
+        state = "iced";
+      } else if (/\bpua sio\b/.test(name)) {
+        state = "lukewarm";
+      }
+
+      // 3. EXPRESSIONS
 
       // kosong = no sugar
       if (/\bkosong\b/.test(name)) {
+        if (condensed_milk) {
+          throw new Error("Invalid Kopi. Condensed milk contains sugar.");
+        }
         sugar = 0;
       }
       // gah dai = sweeter
-      else if (/\b(gah|ka)\sdai\b/.test(name)) {
+      else if (/\b(ga|ka)h?\s(d|t)ai\b/.test(name)) {
         if (condensed_milk > 0) {
           condensed_milk += 0.1;
           water -= 0.05;
@@ -57,21 +67,20 @@ module.exports = {
           evaporated_milk += 0.1;
           water -= 0.05;
           coffee -= 0.05;
-        } else {
-          sugar = 1.5;
         }
+        sugar = 1.5;
       }
       // siu dai = less sweet
-      else if (/\bsi(u|ew)\sdai\b/.test(name)) {
+      else if (/\b(siu|siew|xiu)\s(t|d)ai\b/.test(name)) {
         sugar = 0.5;
       }
       // po = more water, less coffee
-      else if (/\bpo\b/.test(name)) {
+      else if (/\bpoh?\b/.test(name)) {
         water += 0.1;
         coffee -= 0.1;
       }
       // gau = more coffee, less water
-      else if (/\bgau\b/.test(name)) {
+      else if (/\b(g|k)a(u|o)\b/.test(name)) {
         water -= 0.1;
         coffee += 0.1;
       }
@@ -79,12 +88,6 @@ module.exports = {
       else if (/\bdi\slo\b/.test(name)) {
         coffee += water;
         water = 0;
-      }
-
-      // 3. ICE
-
-      if (/\speng$/.test(name)) {
-        ice = true;
       }
     } else if (/^water$/.test(name)) {
       water = 1;
@@ -96,52 +99,58 @@ module.exports = {
       sugar: sugar,
       condensed_milk: condensed_milk,
       evaporated_milk: evaporated_milk,
-      ice: ice
+      state: state
     };
   },
 
   stringify: function stringify() {
-    var i = arguments[0] === undefined ? {} : arguments[0];
+    var ingredients = arguments[0] === undefined ? {} : arguments[0];
+    var condensed_milk = ingredients.condensed_milk;
+    var evaporated_milk = ingredients.evaporated_milk;
+    var state = ingredients.state;
+    var sugar = ingredients.sugar;
+    var coffee = ingredients.coffee;
+    var water = ingredients.water;
 
-    var coffeeLevel, ice, milk, sugarLevel;
+    var coffeeText = "",
+        stateText = "",
+        milkText = "",
+        sweetnessText = "";
 
-    if (i.condensed_milk > 0) {
-      milk = "";
-    } else if (i.evaporated_milk > 0) {
-      milk = " C";
-    } else {
-      milk = " O";
+    if (evaporated_milk > 0) {
+      milkText = " C";
+    } else if (condensed_milk <= 0) {
+      // No milk
+      milkText = " O";
     }
 
-    if (i.sugar === 0) {
-      sugarLevel = " Kosong";
-    } else if (i.sugar < 1) {
-      sugarLevel = " Siew Dai";
-    } else if (i.sugar >= 1) {
-      sugarLevel = "";
+    if (state == "iced") {
+      stateText = " Peng";
+    } else if (state == "lukewarm") {
+      stateText = " Pua Sio";
     }
 
-    if (i.coffee === i.water) {
-      coffeeLevel = "";
-    } else if (i.coffee > i.water) {
-      if (i.water === 0) {
-        coffeeLevel = " Di Lo";
-      } else if (i.condensed_milk > i.water) {
-        coffeeLevel = " Gah Dai";
+    if (coffee > water) {
+      if (water == 0) {
+        coffeeText = " Di Lo";
+      } else if (condensed_milk > water) {
+        sweetnessText = " Gah Dai";
       } else {
-        coffeeLevel = " Gau";
+        coffeeText = " Gao";
       }
-    } else {
-      coffeeLevel = " Po";
+    } else if (coffee < water) {
+      coffeeText = " Po";
     }
 
-    if (i.ice) {
-      ice = " Peng";
-    } else {
-      ice = "";
+    if (sugar == 0 && condensed_milk <= 0) {
+      sweetnessText = " Kosong";
+    } else if (sugar < 1) {
+      sweetnessText = " Siew Dai";
+    } else if (sugar > 1) {
+      sweetnessText = " Gah Dai";
     }
 
-    return "Kopi" + milk + "" + coffeeLevel + "" + sugarLevel + "" + ice;
+    return "Kopi" + milkText + "" + stateText + "" + coffeeText + "" + sweetnessText;
   }
 
 };

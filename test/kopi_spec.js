@@ -12,7 +12,7 @@ describe('Kopi', () => {
         sugar: 1,
         condensed_milk: .2,
         evaporated_milk: 0,
-        ice: false
+        state: 'warm'
       });
     });
 
@@ -24,7 +24,7 @@ describe('Kopi', () => {
         sugar: 1,
         condensed_milk: 0,
         evaporated_milk: 0,
-        ice: false
+        state: 'warm'
       });
     });
 
@@ -36,7 +36,7 @@ describe('Kopi', () => {
         sugar: 1,
         condensed_milk: 0,
         evaporated_milk: .2,
-        ice: false
+        state: 'warm'
       });
     });
 
@@ -61,8 +61,8 @@ describe('Kopi', () => {
       expect(content.water).to.be.gt(content.coffee);
     });
 
-    it('returns more coffee, less water if pass in "Gau"', () => {
-      var content = Kopi.parse('Kopi Gau');
+    it('returns more coffee, less water if pass in "Gao"', () => {
+      var content = Kopi.parse('Kopi Gao');
       expect(content.coffee).to.be.gt(content.water);
     });
 
@@ -74,12 +74,23 @@ describe('Kopi', () => {
 
     it('returns ice if pass in "Peng"', () => {
       var content = Kopi.parse('Kopi Peng');
-      expect(content.ice).to.be["true"];
+      expect(content.state).to.be.equal('iced');
+    });
+
+    it('returns ice if pass in "Pua Sio"', () => {
+      var content = Kopi.parse('Kopi Pua Sio');
+      expect(content.state).to.be.equal('lukewarm');
     });
 
     it('returns water if pass in "Water"', () => {
       var content = Kopi.parse('Water');
       expect(content.water).to.be.equal(1);
+    });
+
+    it('throws an error if pass in "Kopi Kosong"', () => {
+      expect(function(){
+        Kopi.parse('Kopi Kosong')
+      }).to.throw(/invalid kopi/i);
     });
 
   });
@@ -96,14 +107,14 @@ describe('Kopi', () => {
       expect(name).to.equal('Kopi');
     });
 
-    it('returns "Kopi Gau" if more coffee is added', () => {
+    it('returns "Kopi Gao" if more coffee is added', () => {
       var name = Kopi.stringify({
         condensed_milk: .2,
         water: .2,
         coffee: .6,
         sugar: 1
       });
-      expect(name).to.equal('Kopi Gau');
+      expect(name).to.equal('Kopi Gao');
     });
 
     it('returns "Kopi Po" if less coffee is added', () => {
@@ -126,14 +137,14 @@ describe('Kopi', () => {
       expect(name).to.equal('Kopi Siew Dai');
     });
 
-    it('returns "Kopi Kosong" if no sugar is added', () => {
+    it('returns "Kopi Siew Dai" and not "Kopi Kosong" if no sugar is added', () => {
       var name = Kopi.stringify({
         condensed_milk: .2,
         water: .4,
         coffee: .4,
         sugar: 0
       });
-      expect(name).to.equal('Kopi Kosong');
+      expect(name).to.equal('Kopi Siew Dai');
     });
 
     it('returns "Kopi Gah Dai" if more milk is added', () => {
@@ -156,13 +167,13 @@ describe('Kopi', () => {
       expect(name).to.equal('Kopi Di Lo');
     });
 
-    it('returns Kopi name appended with "Peng" if ice is added', () => {
+    it('returns Kopi name includes "Peng" if ice is added', () => {
       var name = Kopi.stringify({
         condensed_milk: .2,
         water: .4,
         coffee: .4,
         sugar: 1,
-        ice: true
+        state: 'iced'
       });
 
       expect(name).to.equal('Kopi Peng');
@@ -172,10 +183,32 @@ describe('Kopi', () => {
         water: .2,
         coffee: .6,
         sugar: 1,
-        ice: true
+        state: 'iced'
       });
 
-      expect(name).to.equal('Kopi Gau Peng');
+      expect(name).to.equal('Kopi Peng Gao');
+    });
+
+    it('returns Kopi name includes "Pua Sio" if it\'s lukewarm', () => {
+      var name = Kopi.stringify({
+        condensed_milk: .2,
+        water: .4,
+        coffee: .4,
+        sugar: 1,
+        state: 'lukewarm'
+      });
+
+      expect(name).to.equal('Kopi Pua Sio');
+
+      name = Kopi.stringify({
+        condensed_milk: .2,
+        water: .2,
+        coffee: .6,
+        sugar: 1,
+        state: 'lukewarm'
+      });
+
+      expect(name).to.equal('Kopi Pua Sio Gao');
     });
 
     context('when no milk is added', () => {
@@ -190,14 +223,14 @@ describe('Kopi', () => {
         expect(name).to.equal('Kopi O');
       });
 
-      it('returns "Kopi O Gau" if more coffee is added', () => {
+      it('returns "Kopi O Gao" if more coffee is added', () => {
         var name = Kopi.stringify({
           condensed_milk: 0,
           water: .3,
           coffee: .7,
           sugar: 1
         });
-        expect(name).to.equal('Kopi O Gau');
+        expect(name).to.equal('Kopi O Gao');
       });
 
       it('returns "Kopi O Po" if less coffee is added', () => {
@@ -245,7 +278,7 @@ describe('Kopi', () => {
         expect(name).to.equal('Kopi C');
       });
 
-      it('returns "Kopi C Gau" if more coffee is added', () => {
+      it('returns "Kopi C Gao" if more coffee is added', () => {
         var name = Kopi.stringify({
           condensed_milk: 0,
           evaporated_milk: .2,
@@ -253,7 +286,7 @@ describe('Kopi', () => {
           coffee: .6,
           sugar: 1
         });
-        expect(name).to.equal('Kopi C Gau');
+        expect(name).to.equal('Kopi C Gao');
       });
 
       it('returns "Kopi C Po" if less coffee is added', () => {
