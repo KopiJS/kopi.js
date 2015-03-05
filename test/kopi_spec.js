@@ -77,7 +77,7 @@ describe('Kopi', () => {
       expect(content.state).to.be.equal('iced');
     });
 
-    it('returns ice if pass in "Pua Sio"', () => {
+    it('returns lukewarm if pass in "Pua Sio"', () => {
       var content = Kopi.parse('Kopi Pua Sio');
       expect(content.state).to.be.equal('lukewarm');
     });
