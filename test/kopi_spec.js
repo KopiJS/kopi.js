@@ -1,4 +1,4 @@
-var Kopi = require('../index');
+var Kopi = require('../dist/kopi');
 
 describe('Kopi', () => {
 
