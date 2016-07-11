@@ -13,29 +13,21 @@
   "main": "./index",
   "browser": "dist/kopi.js",
   "devDependencies": {
-    "babel": "~4.4.6",
-    "babelify": "~5.0.3",
-    "chai": "~2.0.0",
-    "grunt": "~0.4.5",
-    "grunt-browserify": "~3.4.0",
-    "grunt-contrib-uglify": "~0.8.0",
-    "grunt-mocha-test": "~0.12.7"
+    "mocha": "~2.5",
+    "chai": "~3.5.0",
+    "rollup": "~0.34.1",
+    "rollup-plugin-buble": "~0.12.1",
+    "uglify-js": "~2.7.0"
   },
   "scripts": {
-    "dist": "grunt dist",
-    "test": "grunt test"
+    "dist": "npm run dist:normal && npm run dist:min",
+    "dist:normal": "rollup -c rollup-buble.config.js -i lib/kopi.js -o dist/kopi.js",
+    "dist:min": "uglifyjs --screw-ie8 -c -m -o dist/kopi.min.js -- dist/kopi.js",
+    "pretest": "npm run dist",
+    "test": "mocha test/*_spec.* -r test/spec_helper.js -R dot -u bdd"
   },
   "directories": {
     "test": "test"
-  },
-  "dependencies": {
-    "babel": "^4.4.6",
-    "chai": "^2.0.0",
-    "babelify": "^5.0.3",
-    "grunt": "^0.4.5",
-    "grunt-browserify": "^3.4.0",
-    "grunt-contrib-uglify": "^0.8.0",
-    "grunt-mocha-test": "^0.12.7"
   },
   "repository": {
     "type": "git",
@@ -51,5 +43,5 @@
   "bugs": {
     "url": "https://github.com/kopijs/kopi.js/issues"
   },
-  "homepage": "https://github.com/kopijs/kopi.js"
+  "homepage": "https://kopijs.org"
 }
