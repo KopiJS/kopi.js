@@ -5,6 +5,7 @@
 ⚠️ **JavaScript is NOT required**.
 
 🗓  Date: **[DAY], [DATE] [MONTH] [YEAR], [TIME]**
+
 🗺  Location: [PLACE NAME, with link to website or FourSquare etc], [PLACE ADDRESS, with link to Google Maps]
 
 > Agenda: Gather. Chope. Drink. Eat. Stickers. Selfies.
